@@ -2,15 +2,17 @@ const express= require('express');
 const router = express.Router();
 const mongodb = require('mongodb');
 const mongoose = require('mongoose');
-// This pulls from the models.
-// const models = require("./models/user");
-// const User = models.User;
-const mongoURL = 'mongodb://localhost:27017/json_api';
+const path = require('path');
+const http = require('http');
+const mongoURL = 'mongodb://localhost:27017/test_api';
 mongoose.createConnection(mongoURL, {
   useMongoClient: true
 });
 mongoose.Promise = require('bluebird');
 const MongoClient = require('mongodb').MongoClient;
+// This pulls from the models.
+// const models = require("./models/user");
+// const User = models.User;
 
 // endpoints in this file are nested under '/api'
 router.get('/', function(req, res){
@@ -48,7 +50,7 @@ router.get('/todos', function(req, res){
 router.get('/activities', function(req, res){
   res.json([
     {
-      item: "Take a nap",
+      item: "activities",
       complete: false
     },
     {
@@ -62,7 +64,7 @@ router.get('/activities', function(req, res){
 router.post('/activities', function(req, res){
   res.json([
     {
-      item: "Take a nap",
+      item: "post activities",
       complete: false
     },
     {
@@ -76,7 +78,7 @@ router.post('/activities', function(req, res){
 router.get('/activities/:id', function(req, res){
   res.json([
     {
-      item: "Take a nap",
+      item: "get act id",
       complete: false
     },
     {
@@ -90,7 +92,7 @@ router.get('/activities/:id', function(req, res){
 router.put('/activities/:id', function(req, res){
   res.json([
     {
-      item: "Take a nap",
+      item: "put act id",
       complete: false
     },
     {

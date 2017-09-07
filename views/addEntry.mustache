@@ -13,7 +13,7 @@
         {{.}}
       </div>
       {{/messages.error}}
-      <form method="post" action = '/submit_registration/'>
+      <form method="post" action = '/add_task/'>
         <input type="text" id='username-input' name="username" placeholder="Username"/>
         <input type="text" id='date-input' name="date" placeholder="Date"/>
         <input type="text" id='activity-input' name="activity" placeholder="Activity"/>
@@ -21,6 +21,20 @@
         <input type="text" id='amountType-input' name="amountType" placeholder="Type of Set"/>
       <button type = 'submit'>Add Entry</button>
     </form>
+<div class="nav">
+  {{#user.length}}
+  <h2>User List</h2>
+  <hr />
+  {{/user.length}}
+  {{#user}}
+    <div>
+      <p>UserName: <em>{{ username }}</em></p>
+      <p>Password Hash: {{ passwordHash }}</p>
+      <p>Email: {{email}}</p>
+      <hr />
+    </div>
+  {{/user}}
+</div>
     <p><a href="/">Index</a></div>
   </div>
   </body>
