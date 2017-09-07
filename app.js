@@ -62,18 +62,23 @@ app.post('/add_task/', function(req, res) {
 app.get("/activities/:id", function  (req, res) {
   req.session.activityid = req.params.id;
   console.log("ID: " + req.params.id);
+  let x = 1;
   User.findOne({_id: req.params.id}).then(function(user) {
     res.render('addEntry', {user: user});
   });
-// 	 const activity = Activity.getActivityById(req.params.id, function(err, activity){
-// 			if(err){
-// 				console.log(err);
-// 			}
-//
-// 	res.render('activity',{activity:activity})
-//
-// })
+});
 
+
+//update activity
+app.post("/api/activities/:id", function  (req, res) {
+  let activity = req.body.activity;
+  let id = req.params.id;
+  console.log("Params: "+req.params);
+  console.log("ID: "+req.params.id+", Activity: "+activity);
+  User.findOneAndUpdate({_id: req.params.id}, {activity: activity}, {new:true}).then(function(user) {
+    // res.send(user);
+    res.redirect('/activities', {user: user});
+  });
 });
 
 app.listen(3000, function(){
