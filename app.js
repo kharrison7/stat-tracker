@@ -75,7 +75,7 @@ app.post("/api/activities/:id", function  (req, res) {
   let id = req.params.id;
   console.log("Params: "+req.params);
   console.log("ID: "+req.params.id+", Activity: "+activity);
-  User.findOneAndUpdate({_id: req.params.id}, {activity: activity}, {new:true}).then(function(user) {
+  User.findOneAndUpdate({_id: req.params.id, activity: activity}).then(function(user) {
     // res.send(user);
     res.redirect('/activities', {user: user});
   });
