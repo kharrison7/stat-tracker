@@ -37,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', rootRouter);
 app.use('/api', apiRouter);
 
+//get all activities
 // Takes the user to the add entry page.
 app.get('/addEntry', function(req, res) {
   console.log("addEntry for user");
@@ -46,6 +47,7 @@ app.get('/addEntry', function(req, res) {
   });
 });
 
+// This adds a task as a user document.
 app.post('/add_task/', function(req, res) {
   console.log("/add_task/");
   console.log(req.body);
@@ -54,6 +56,24 @@ app.post('/add_task/', function(req, res) {
     // req.flash("success_msg", "You are registered");
     res.redirect('/');
   });
+});
+
+//get stats for a single activity
+app.get("/addEntry/:id", function  (req, res) {
+  req.session.activityid = req.params.id;
+  console.log("ID: " + req.params.id);
+  User.findOne({_id: req.params.id}).then(function(user) {
+    res.render('addEntry', {user: user});
+  });
+// 	 const activity = Activity.getActivityById(req.params.id, function(err, activity){
+// 			if(err){
+// 				console.log(err);
+// 			}
+//
+// 	res.render('activity',{activity:activity})
+//
+// })
+
 });
 
 app.listen(3000, function(){
