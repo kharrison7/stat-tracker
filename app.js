@@ -68,7 +68,6 @@ app.get("/activities/:id", function  (req, res) {
   });
 });
 
-
 //update activity
 app.post("/api/activities/:id", function  (req, res) {
   let activity = req.body.activity;
@@ -77,10 +76,25 @@ app.post("/api/activities/:id", function  (req, res) {
   console.log("ID: "+req.params.id+", Activity: "+activity);
   User.findOneAndUpdate({_id: req.params.id, activity: activity}).then(function(user) {
     console.log("updated");
-    res.redirect('/');
-    // res.send(user);
-    // res.redirect('/activities', {user: user});
+    res.redirect('/activities');
   });
+});
+
+//delete activity
+app.post("/api/activities/:id/delete", function  (req, res) {
+	let id = req.params.id;
+  let query = {_id:id};
+  console.log("Query: "+query);
+  User.remove(query).then(function(user) {
+    console.log("deleted");
+    res.redirect('/activities');
+  });
+	// Activity.deleteActivity(id, function(err, activity){
+	// 	if(err){
+	// 		console.log(err);
+	// 	};
+	// 	res.redirect("/api/activities")
+	// })
 });
 
 app.listen(3000, function(){

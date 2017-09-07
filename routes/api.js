@@ -92,18 +92,18 @@ router.get('/activities/:id', function(req, res){
 });
 
 // Update one activity I am tracking, changing attributes such as name or type. Does not allow for changing tracked data.
-router.put('/activities/:id', function(req, res){
-  res.json([
-    {
-      item: "put act id",
-      complete: false
-    },
-    {
-      item: "Eat some guacamole",
-      complete: false
-    }
-  ]);
-});
+// router.put('/activities/:id', function(req, res){
+//   res.json([
+//     {
+//       item: "put act id",
+//       complete: false
+//     },
+//     {
+//       item: "Eat some guacamole",
+//       complete: false
+//     }
+//   ]);
+// });
 
 // Delete one activity I am tracking. This should remove tracked data for that activity as well.
 router.delete('/activities/:id', function(req, res){
