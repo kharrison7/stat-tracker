@@ -39,7 +39,7 @@ app.use('/api', apiRouter);
 
 //get all activities
 // Takes the user to the add entry page.
-app.get('/addEntry', function(req, res) {
+app.get('/activities', function(req, res) {
   console.log("addEntry for user");
   // res.render('addEntry');
   User.find().then(function(user) {
@@ -59,7 +59,7 @@ app.post('/add_task/', function(req, res) {
 });
 
 //get stats for a single activity
-app.get("/addEntry/:id", function  (req, res) {
+app.get("/activities/:id", function  (req, res) {
   req.session.activityid = req.params.id;
   console.log("ID: " + req.params.id);
   User.findOne({_id: req.params.id}).then(function(user) {

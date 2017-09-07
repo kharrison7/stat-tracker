@@ -36,7 +36,10 @@ router.get('/todos', function(req, res){
   ]);
 });
 
-// My code.
+// My code can be found in the app.js file.
+// My code can be found in the app.js file.
+// My code can be found in the app.js file.
+
 // router.get('/addEntry', function(req, res) {
 //   console.log("addEntry for user");
 //   res.render('addEntry');

@@ -7,7 +7,7 @@
   </head>
   <body>
     <div class = 'wrapper'>
-      <h1>Add Entry</h1>
+      <h4>Post a new Entry</h4>
       {{#messages.error}}
       <div class="alert alert-danger" role="alert">
         {{.}}
@@ -33,12 +33,13 @@
       <p>Activity: {{activity}}</p>
       <p>Amount: {{amount}}</p>
       <p>Type: {{amountType}}</p>
-      <p>ID: {{_id}}</p>
+      <a href="http://localhost:3000/activities/{{_id}}">ID: {{_id}}</a>
       <hr />
     </div>
   {{/user}}
 </div>
     <p><a href="/">Index</a></div>
+    <a href="http://localhost:3000/activities">Add Entry Main Page</a>
   </div>
   </body>
 </html>
