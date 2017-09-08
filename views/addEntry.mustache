@@ -44,6 +44,11 @@
             <form action="/api/activities/{{id}}/delete" method="post">
 			          <input type="submit" name="" value="Delete">
 			      </form>
+            <form action="/api/activities/{{id}}/stats" method="post">
+              <input type="text" id='activity-input' name="activity" placeholder="Activity" />
+              <input type="text" id='amount-input' name="amount" placeholder="Stat" />
+			        <input type="submit" name="" value="Update Stat">
+			      </form>
             <a href="http://localhost:3000/activities/{{_id}}">ID: {{_id}}</a>
             <hr />
           </div>

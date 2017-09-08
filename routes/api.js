@@ -120,18 +120,18 @@ router.delete('/activities/:id', function(req, res){
 });
 
 // Add tracked data for a day. The data sent with this should include the day tracked. You can also override the data for a day already recorded.
-router.post('/activities/:id/stats', function(req, res){
-  res.json([
-    {
-      item: "Take a nap",
-      complete: false
-    },
-    {
-      item: "Eat some guacamole",
-      complete: false
-    }
-  ]);
-});
+// router.post('/activities/:id/stats', function(req, res){
+//   res.json([
+//     {
+//       item: "Take a nap",
+//       complete: false
+//     },
+//     {
+//       item: "Eat some guacamole",
+//       complete: false
+//     }
+//   ]);
+// });
 
 // Remove tracked data for a day.
 router.delete('/stats/:id', function(req, res){

@@ -10,6 +10,8 @@ mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/test_api');
 const models = require("./models/user");
 const User = models.User;
+const modelStat = require("./models/stat");
+const Stat = modelStat.Stat;
 
 app.use(session({
   secret: 'Auaf4PCUWO',
@@ -89,13 +91,38 @@ app.post("/api/activities/:id/delete", function  (req, res) {
     console.log("deleted");
     res.redirect('/activities');
   });
-	// Activity.deleteActivity(id, function(err, activity){
+});
+
+//add stats to activity
+app.post("/api/activities/:id/stats", function  (req, res) {
+  let id = req.params.id;
+  let activity = req.body.activity;
+	let amount = req.body.amount;
+	let newstat = {"identifier": id, "activityId": req.body.aactivity, "amount": req.body.amount}
+  console.log("Params: "+req.params);
+  console.log(req.body);
+  console.log("ID: "+req.params.id+", Activity: "+req.body.activity+", Amount: "+req.body.amount);
+  Stat.create(newstat).then(function(user) {
+    // req.flash("success_msg", "You are registered");
+    console.log("added a stat");
+    res.redirect('/activities');
+  });
+  // User.findOne(newstat).then(function(user) {
+  //   console.log("added a stat");
+  //   res.redirect('/activities');
+  // });
+  // Stat.addStat(newstat, function(err, stat){
 	// 	if(err){
 	// 		console.log(err);
 	// 	};
-	// 	res.redirect("/api/activities")
-	// })
+	// 	res.redirect("/api/activities/"+req.params.id)
+	// });
+  // User.findOne({_id: req.params.id, activity: activity}).then(function(user) {
+  //   console.log("updated");
+  //   res.redirect('/activities');
+  // });
 });
+
 
 app.listen(3000, function(){
   console.log('Started express application!')
