@@ -43,9 +43,10 @@ app.use('/api', apiRouter);
 // Takes the user to the add entry page.
 app.get('/activities', function(req, res) {
   console.log("addEntry for user");
-  // res.render('addEntry');
   User.find().then(function(user) {
-    res.render('addEntry', {user: user});
+    Stat.find().then(function(stat) {
+      res.render('addEntry', {user: user, stat: stat});
+    });
   });
 });
 
@@ -98,29 +99,25 @@ app.post("/api/activities/:id/stats", function  (req, res) {
   let id = req.params.id;
   let activity = req.body.activity;
 	let amount = req.body.amount;
-	let newstat = {"identifier": id, "activityId": req.body.aactivity, "amount": req.body.amount}
+	let newstat = {"activityId": req.body.aactivity, "identifier": id, "amount": req.body.amount}
   console.log("Params: "+req.params);
   console.log(req.body);
   console.log("ID: "+req.params.id+", Activity: "+req.body.activity+", Amount: "+req.body.amount);
   Stat.create(newstat).then(function(user) {
-    // req.flash("success_msg", "You are registered");
     console.log("added a stat");
     res.redirect('/activities');
   });
-  // User.findOne(newstat).then(function(user) {
-  //   console.log("added a stat");
-  //   res.redirect('/activities');
-  // });
-  // Stat.addStat(newstat, function(err, stat){
-	// 	if(err){
-	// 		console.log(err);
-	// 	};
-	// 	res.redirect("/api/activities/"+req.params.id)
-	// });
-  // User.findOne({_id: req.params.id, activity: activity}).then(function(user) {
-  //   console.log("updated");
-  //   res.redirect('/activities');
-  // });
+});
+
+//delete stats for a given day.
+app.post("/api/stats/:id", function  (req, res) {
+	let id = req.params.id;
+  let query = {_id:id};
+  console.log("Query: "+query);
+  Stat.remove(query).then(function(stat) {
+    console.log("deleted stat");
+    res.redirect('/activities');
+  });
 });
 
 

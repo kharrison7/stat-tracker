@@ -53,6 +53,21 @@
             <hr />
           </div>
         {{/user}}
+        {{#stat.length}}
+        <p>stats:</p>
+        {{/stat.length}}
+        {{#stat}}
+        <p>{{activityId}}</p>
+        <p>{{amount}}</p>
+        <p>{{identifier}}</p>
+        <p>{{create_date}}</p>
+        <form action="/api/stats/{{id}}" method="post">
+            <input type="submit" name="" value="Delete">
+        </form>
+        {{/stat}}
+        {{^stat}}
+        <p>No stats currently</p>
+        {{/stat}}
       </div>
       <p><a href="/">Index</a></div>
   <a href="http://localhost:3000/activities">Add Entry Main Page</a>
