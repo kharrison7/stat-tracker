@@ -99,23 +99,34 @@ app.post("/api/activities/:id/stats", function  (req, res) {
   let id = req.params.id;
   let activity = req.body.activity;
 	let amount = req.body.amount;
-	let newstat = {"activityId": req.body.aactivity, "identifier": id, "amount": req.body.amount}
+	let newstat = {"activityId": req.body.activity, "identifier": id, "amount": req.body.amount, "create_date": req.body.date}
   console.log("Params: "+req.params);
   console.log(req.body);
-  console.log("ID: "+req.params.id+", Activity: "+req.body.activity+", Amount: "+req.body.amount);
+  console.log("ID: "+req.params.id+", Activity: "+req.body.activity+", Amount: "+req.body.amount+", Date: "+req.body.date);
   Stat.create(newstat).then(function(user) {
     console.log("added a stat");
     res.redirect('/activities');
   });
 });
 
-//delete stats for a given day.
+//delete stat
 app.post("/api/stats/:id", function  (req, res) {
 	let id = req.params.id;
   let query = {_id:id};
   console.log("Query: "+query);
   Stat.remove(query).then(function(stat) {
     console.log("deleted stat");
+    res.redirect('/activities');
+  });
+});
+
+//delete stats by date (all stats for a given date are deleted)
+app.post("/api/stat/date_delete", function  (req, res) {
+	// let id = req.params.id;
+  let query = {create_date: req.body.date};
+  console.log("date: "+req.body.date);
+  Stat.remove(query).then(function(stat) {
+    console.log("deleted stat by date");
     res.redirect('/activities');
   });
 });
