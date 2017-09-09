@@ -51,7 +51,6 @@ app.get('/activities', function(req, res) {
 
 // This adds a task as a user document.
 app.post('/add_task/', function(req, res) {
-  console.log("/add_task/");
   console.log(req.body);
   // Adds user to database.
   User.create(req.body).then(function(user) {
@@ -64,7 +63,6 @@ app.post('/add_task/', function(req, res) {
 app.get("/activities/:id", function  (req, res) {
   req.session.activityid = req.params.id;
   console.log("ID: " + req.params.id);
-  let x = 1;
   User.findOne({_id: req.params.id}).then(function(user) {
     res.render('addEntry', {user: user});
   });
@@ -74,7 +72,6 @@ app.get("/activities/:id", function  (req, res) {
 app.post("/api/activities/:id", function  (req, res) {
   let activity = req.body.activity;
   let id = req.params.id;
-  console.log("Params: "+req.params);
   console.log("ID: "+req.params.id+", Activity: "+activity);
   User.findOneAndUpdate({_id: req.params.id}, {activity: activity}).then(function(user) {
     console.log("updated");
@@ -99,7 +96,6 @@ app.post("/api/activities/:id/stats", function  (req, res) {
   let activity = req.body.activity;
 	let amount = req.body.amount;
 	let newstat = {"activityId": req.body.activity, "identifier": id, "amount": req.body.amount, "create_date": req.body.date}
-  console.log("Params: "+req.params);
   console.log(req.body);
   console.log("ID: "+req.params.id+", Activity: "+req.body.activity+", Amount: "+req.body.amount+", Date: "+req.body.date);
   Stat.create(newstat).then(function(user) {
@@ -112,7 +108,6 @@ app.post("/api/activities/:id/stats", function  (req, res) {
 app.post("/api/stats/:id", function  (req, res) {
 	let id = req.params.id;
   let query = {_id:id};
-  console.log("Query: "+query);
   Stat.remove(query).then(function(stat) {
     console.log("deleted stat");
     res.redirect('/activities');
@@ -126,6 +121,28 @@ app.post("/api/stat/date_delete", function  (req, res) {
   console.log("date: "+req.body.date);
   Stat.remove(query).then(function(stat) {
     console.log("deleted stat by date");
+    res.redirect('/activities');
+  });
+});
+
+// The following are redundant but use 'put' and 'delete'.
+//A user cannot submit forms using put or delete so these are for demonstration purposes only.
+app.put("/api/activities/:id", function  (req, res) {
+  let activity = req.body.activity;
+  let id = req.params.id;
+  console.log("ID: "+req.params.id+", Activity: "+activity);
+  User.findOneAndUpdate({_id: req.params.id}, {activity: activity}).then(function(user) {
+    console.log("updated");
+    res.redirect('/activities');
+  });
+});
+
+//delete activity
+app.delete("/api/activities/:id/delete", function  (req, res) {
+	let id = req.params.id;
+  let query = {_id:id};
+  User.remove(query).then(function(user) {
+    console.log("deleted");
     res.redirect('/activities');
   });
 });
