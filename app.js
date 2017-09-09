@@ -42,7 +42,6 @@ app.use('/api', apiRouter);
 //get all activities
 // Takes the user to the add entry page.
 app.get('/activities', function(req, res) {
-  console.log("addEntry for user");
   User.find().then(function(user) {
     Stat.find().then(function(stat) {
       res.render('addEntry', {user: user, stat: stat});

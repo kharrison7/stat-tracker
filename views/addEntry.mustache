@@ -36,6 +36,7 @@
             <p>Type: {{amountType}}</p>
             <h4>Put/Update an Entry's Activity</h4>
             <form method="post" action='/api/activities/{{_id}}'>
+              <input(type='hidden', name='_method', value='PUT'>
               <input type="text" id='activity-input' name="activity" placeholder="Activity" />
               <button type='submit'>Update Activity</button>
             </form>
